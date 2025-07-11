@@ -1,0 +1,11 @@
+/vendor/
+/.env
+/.env.production
+/config.php
+/error_log_phpmailer.txt
+*.log
+*.env
+.DS_Store
+.idea/
+/.vscode/
+/node_modules/

@@ -1,0 +1,22 @@
+# Evitar listado de directorios
+Options -Indexes
+
+# Forzar UTF-8
+AddDefaultCharset UTF-8
+
+# Evitar acceso directo a archivos .htaccess
+<Files .htaccess>
+  Require all denied
+</Files>
+
+# Restringir acceso solo a peticiones POST (por ejemplo, para procesar.php)
+<Files "procesar.php">
+  <If "%{REQUEST_METHOD} != 'POST'">
+    Require all denied
+  </If>
+</Files>
+
+# Proteger archivos PHP que no deben ser accesibles (opcional)
+<FilesMatch "^(config|guardar_db|enviar_email)\.php$">
+  Require all denied
+</FilesMatch>

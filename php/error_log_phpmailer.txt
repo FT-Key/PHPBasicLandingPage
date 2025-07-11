@@ -1,0 +1,7 @@
+[12-Jul-2025 00:12:27 Europe/Berlin] PHP Warning:  mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set() in C:\Users\Fr4nc\OneDrive\Desktop\Practice\PHPBasic\php\procesar.php on line 372
+[12-Jul-2025 00:12:31 Europe/Berlin] Error en base de datos: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[12-Jul-2025 00:27:18 Europe/Berlin] ❌ Error al verificar/crear tabla: SQLSTATE[HY000] [1045] Access denied for user 'FTKey123987'@'localhost' (using password: YES)
+[12-Jul-2025 00:27:23 Europe/Berlin] PHP Warning:  mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set() in C:\Users\Fr4nc\OneDrive\Desktop\Practice\PHPBasic\php\procesar.php on line 374
+[12-Jul-2025 00:27:23 Europe/Berlin] Error en base de datos: SQLSTATE[HY000] [1045] Access denied for user 'FTKey123987'@'localhost' (using password: YES)
+[12-Jul-2025 00:32:11 Europe/Berlin] ✅ Tabla 'contactos' creada correctamente
+[12-Jul-2025 00:32:17 Europe/Berlin] PHP Warning:  mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set() in C:\Users\Fr4nc\OneDrive\Desktop\Practice\PHPBasic\php\procesar.php on line 374

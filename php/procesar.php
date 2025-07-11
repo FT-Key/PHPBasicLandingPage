@@ -1,4 +1,26 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php'; // carga PHPMailer y también dotenv
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use Dotenv\Dotenv;
+
+// Ruta base de tus envs
+$envPath = __DIR__ . '/../';
+
+// Cargar primero el archivo base (opcional)
+$dotenv = Dotenv::createImmutable($envPath);
+$dotenv->load();
+
+// Verificar si se definió APP_ENV en tu archivo base
+$appEnv = getenv('APP_ENV');
+
+// Si es production, cargar el archivo .env.production
+if ($appEnv === 'production') {
+    $dotenv = Dotenv::createImmutable($envPath, '.env.production');
+    $dotenv->load();
+}
+
 // ====================================
 // PROCESAMIENTO DE FORMULARIO PHP
 // ====================================
@@ -13,6 +35,9 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/error_log_phpmailer.txt');
+
 // Verificar que sea una petición POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   http_response_code(405);
@@ -26,23 +51,26 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Configuración de email
 $config = [
-  'smtp_host' => 'smtp.gmail.com',
-  'smtp_port' => 587,
-  'smtp_user' => 'tu-email@gmail.com',
-  'smtp_pass' => 'tu-password-de-aplicacion',
-  'from_email' => 'tu-email@gmail.com',
-  'from_name' => 'TechSolutions',
-  'to_email' => 'contacto@techsolutions.com',
-  'to_name' => 'TechSolutions'
+  'smtp_host' => getenv('SMTP_HOST'),
+  'smtp_port' => getenv('SMTP_PORT'),
+  'smtp_user' => getenv('SMTP_USER'),
+  'smtp_pass' => getenv('SMTP_PASS'),
+  'from_email' => getenv('FROM_EMAIL'),
+  'from_name' => getenv('FROM_NAME'),
+  'to_email' => getenv('TO_EMAIL'),
+  'to_name' => getenv('TO_NAME')
 ];
 
 // Configuración de base de datos (opcional)
 $db_config = [
-  'host' => 'localhost',
-  'dbname' => 'techsolutions',
-  'username' => 'tu_usuario',
-  'password' => 'tu_password'
+  'host' => getenv('DB_HOST'),
+  'port' => getenv('DB_PORT'),
+  'dbname' => getenv('DB_NAME'),
+  'username' => getenv('DB_USER'),
+  'password' => getenv('DB_PASS'),
 ];
+
+verificarYCrearTablaContactos($db_config);
 
 // ====================================
 // FUNCIONES DE VALIDACIÓN
@@ -202,33 +230,36 @@ try {
 
 function enviarEmail($datos, $config)
 {
+  $mail = new PHPMailer(true);
+
   try {
-    // Configurar contenido del email
-    $asunto = "Nuevo contacto desde TechSolutions - " . $datos['nombre'];
+    // Configuración del servidor SMTP
+    $mail->isSMTP();
+    $mail->Host = $config['smtp_host'];
+    $mail->SMTPAuth = true;
+    $mail->Username = $config['smtp_user'];
+    $mail->Password = $config['smtp_pass'];
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // TLS
+    $mail->Port = $config['smtp_port'];
 
-    $mensaje_html = generarPlantillaEmail($datos);
+    // Remitente y destinatario
+    $mail->setFrom($config['from_email'], $config['from_name']);
+    $mail->addAddress($config['to_email'], $config['to_name']);
+    $mail->addReplyTo($datos['email'], $datos['nombre']);
 
-    // Headers del email
-    $headers = [
-      'MIME-Version: 1.0',
-      'Content-type: text/html; charset=UTF-8',
-      'From: ' . $config['from_name'] . ' <' . $config['from_email'] . '>',
-      'Reply-To: ' . $datos['email'],
-      'X-Mailer: PHP/' . phpversion()
-    ];
+    // Contenido
+    $mail->isHTML(true);
+    $mail->Subject = "Nuevo contacto desde TechSolutions - " . $datos['nombre'];
+    $mail->Body = generarPlantillaEmail($datos);
 
-    // Enviar email
-    $enviado = mail($config['to_email'], $asunto, $mensaje_html, implode("\r\n", $headers));
+    $mail->send();
 
-    if ($enviado) {
-      // Enviar email de confirmación al cliente
-      enviarEmailConfirmacion($datos, $config);
-      return true;
-    }
+    // Enviar email de confirmación
+    enviarEmailConfirmacion($datos, $config);
 
-    return false;
+    return true;
   } catch (Exception $e) {
-    error_log("Error al enviar email: " . $e->getMessage());
+    error_log("Error al enviar email: " . $mail->ErrorInfo);
     return false;
   }
 }
@@ -436,5 +467,47 @@ function crearTablaContactos($db_config)
   }
 }
 
-// Descomenta esta línea para crear la tabla la primera vez
-// crearTablaContactos($db_config);
+function verificarYCrearTablaContactos($db_config)
+{
+  try {
+    $pdo = new PDO(
+      "mysql:host={$db_config['host']};dbname={$db_config['dbname']};charset=utf8",
+      $db_config['username'],
+      $db_config['password'],
+      [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+      ]
+    );
+
+    // Verificar si la tabla existe
+    $stmt = $pdo->query("SHOW TABLES LIKE 'contactos'");
+    $tableExists = $stmt->rowCount() > 0;
+
+    if (!$tableExists) {
+      $sql = "CREATE TABLE IF NOT EXISTS contactos (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                nombre VARCHAR(100) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                empresa VARCHAR(255),
+                servicio VARCHAR(100),
+                mensaje TEXT NOT NULL,
+                fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                ip_address VARCHAR(45),
+                procesado BOOLEAN DEFAULT FALSE,
+                INDEX idx_email (email),
+                INDEX idx_fecha (fecha_creacion)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
+
+      $pdo->exec($sql);
+      error_log("✅ Tabla 'contactos' creada correctamente");
+    } else {
+      error_log("ℹ️ Tabla 'contactos' ya existe, no se creó");
+    }
+
+    return true;
+  } catch (PDOException $e) {
+    error_log("❌ Error al verificar/crear tabla: " . $e->getMessage());
+    return false;
+  }
+}
