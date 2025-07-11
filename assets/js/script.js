@@ -202,7 +202,7 @@ function submitForm(form) {
   const formData = new FormData(form);
 
   // Enviar datos con fetch
-  fetch('procesar.php', {
+  fetch('../php/procesar.php', {
     method: 'POST',
     body: formData
   })
