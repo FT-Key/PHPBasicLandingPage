@@ -1,0 +1,222 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34495E;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2C3E50;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="screenGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498DB;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#2980B9;stop-opacity:0.1" />
+    </linearGradient>
+    
+    <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#27AE60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#229954;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Drop shadow -->
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="600" height="400" fill="url(#bgGradient)" rx="20"/>
+  
+  <!-- Office environment -->
+  <!-- Desk -->
+  <rect x="50" y="320" width="500" height="60" fill="#8B4513" rx="5"/>
+  <rect x="50" y="315" width="500" height="10" fill="#A0522D" rx="5"/>
+  
+  <!-- Multiple monitors setup -->
+  <g transform="translate(100, 180)">
+    <!-- Monitor 1 -->
+    <rect x="0" y="0" width="120" height="90" fill="#2C3E50" rx="5"/>
+    <rect x="5" y="5" width="110" height="80" fill="#ECF0F1" rx="3"/>
+    <rect x="50" y="90" width="20" height="15" fill="#34495E"/>
+    <rect x="45" y="105" width="30" height="5" fill="#34495E" rx="2"/>
+    
+    <!-- Code/Design on screen 1 -->
+    <rect x="15" y="15" width="40" height="5" fill="#3498DB"/>
+    <rect x="15" y="25" width="60" height="5" fill="#E74C3C"/>
+    <rect x="15" y="35" width="30" height="5" fill="#27AE60"/>
+    <rect x="15" y="45" width="70" height="5" fill="#F39C12"/>
+    <rect x="15" y="55" width="50" height="5" fill="#9B59B6"/>
+    <rect x="15" y="65" width="45" height="5" fill="#3498DB"/>
+    
+    <!-- Monitor 2 -->
+    <rect x="140" y="0" width="120" height="90" fill="#2C3E50" rx="5"/>
+    <rect x="145" y="5" width="110" height="80" fill="#ECF0F1" rx="3"/>
+    <rect x="190" y="90" width="20" height="15" fill="#34495E"/>
+    <rect x="185" y="105" width="30" height="5" fill="#34495E" rx="2"/>
+    
+    <!-- Charts/Analytics on screen 2 -->
+    <rect x="155" y="15" width="80" height="60" fill="#F8F9FA" rx="2"/>
+    <rect x="160" y="20" width="10" height="30" fill="url(#chartGradient)"/>
+    <rect x="175" y="25" width="10" height="25" fill="url(#chartGradient)"/>
+    <rect x="190" y="15" width="10" height="35" fill="url(#chartGradient)"/>
+    <rect x="205" y="30" width="10" height="20" fill="url(#chartGradient)"/>
+    <rect x="220" y="20" width="10" height="30" fill="url(#chartGradient)"/>
+    
+    <!-- Monitor 3 -->
+    <rect x="280" y="0" width="120" height="90" fill="#2C3E50" rx="5"/>
+    <rect x="285" y="5" width="110" height="80" fill="#ECF0F1" rx="3"/>
+    <rect x="330" y="90" width="20" height="15" fill="#34495E"/>
+    <rect x="325" y="105" width="30" height="5" fill="#34495E" rx="2"/>
+    
+    <!-- Mobile app design on screen 3 -->
+    <rect x="320" y="20" width="25" height="45" fill="#3498DB" rx="8"/>
+    <rect x="323" y="25" width="19" height="30" fill="#ECF0F1" rx="2"/>
+    <circle cx="332" cy="60" r="2" fill="#ECF0F1"/>
+    
+    <rect x="350" y="20" width="25" height="45" fill="#E74C3C" rx="8"/>
+    <rect x="353" y="25" width="19" height="30" fill="#ECF0F1" rx="2"/>
+    <circle cx="362" cy="60" r="2" fill="#ECF0F1"/>
+  </g>
+  
+  <!-- Team members silhouettes -->
+  <g transform="translate(80, 100)">
+    <!-- Person 1 - Developer -->
+    <circle cx="0" cy="0" r="25" fill="#3498DB" opacity="0.8"/>
+    <rect x="-15" y="20" width="30" height="40" fill="#3498DB" opacity="0.8" rx="15"/>
+    <!-- Laptop -->
+    <rect x="-10" y="35" width="20" height="12" fill="#2C3E50" rx="2"/>
+    <rect x="-8" y="37" width="16" height="8" fill="#ECF0F1" rx="1"/>
+  </g>
+  
+  <g transform="translate(200, 110)">
+    <!-- Person 2 - Designer -->
+    <circle cx="0" cy="0" r="25" fill="#E74C3C" opacity="0.8"/>
+    <rect x="-15" y="20" width="30" height="40" fill="#E74C3C" opacity="0.8" rx="15"/>
+    <!-- Design tablet -->
+    <rect x="-12" y="35" width="24" height="18" fill="#2C3E50" rx="2"/>
+    <rect x="-10" y="37" width="20" height="14" fill="#ECF0F1" rx="1"/>
+  </g>
+  
+  <g transform="translate(320, 105)">
+    <!-- Person 3 - Project Manager -->
+    <circle cx="0" cy="0" r="25" fill="#27AE60" opacity="0.8"/>
+    <rect x="-15" y="20" width="30" height="40" fill="#27AE60" opacity="0.8" rx="15"/>
+    <!-- Documents -->
+    <rect x="-8" y="35" width="16" height="20" fill="#ECF0F1" rx="1"/>
+    <rect x="-6" y="37" width="12" height="2" fill="#2C3E50"/>
+    <rect x="-6" y="41" width="12" height="2" fill="#2C3E50"/>
+    <rect x="-6" y="45" width="12" height="2" fill="#2C3E50"/>
+  </g>
+  
+  <g transform="translate(440, 115)">
+    <!-- Person 4 - DevOps -->
+    <circle cx="0" cy="0" r="25" fill="#F39C12" opacity="0.8"/>
+    <rect x="-15" y="20" width="30" height="40" fill="#F39C12" opacity="0.8" rx="15"/>
+    <!-- Server/Cloud -->
+    <rect x="-10" y="35" width="20" height="8" fill="#34495E" rx="2"/>
+    <circle cx="-5" cy="39" r="2" fill="#27AE60"/>
+    <circle cx="0" cy="39" r="2" fill="#E74C3C"/>
+    <circle cx="5" cy="39" r="2" fill="#3498DB"/>
+  </g>
+  
+  <!-- Floating collaboration elements -->
+  <g opacity="0.6">
+    <!-- Connection lines between team members -->
+    <line x1="105" y1="140" x2="175" y2="150" stroke="#3498DB" stroke-width="2" stroke-dasharray="3,3">
+      <animate attributeName="stroke-dashoffset" values="0;-6" dur="2s" repeatCount="indefinite"/>
+    </line>
+    <line x1="225" y1="150" x2="295" y2="145" stroke="#E74C3C" stroke-width="2" stroke-dasharray="3,3">
+      <animate attributeName="stroke-dashoffset" values="0;-6" dur="2.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="345" y1="145" x2="415" y2="155" stroke="#27AE60" stroke-width="2" stroke-dasharray="3,3">
+      <animate attributeName="stroke-dashoffset" values="0;-6" dur="3s" repeatCount="indefinite"/>
+    </line>
+  </g>
+  
+  <!-- Achievement badges -->
+  <g transform="translate(450, 50)">
+    <!-- 5+ years badge -->
+    <circle cx="0" cy="0" r="30" fill="#3498DB" opacity="0.9"/>
+    <text x="0" y="-8" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="bold">5+</text>
+    <text x="0" y="8" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="8">AÑOS</text>
+  </g>
+  
+  <g transform="translate(500, 100)">
+    <!-- 100+ projects badge -->
+    <circle cx="0" cy="0" r="30" fill="#27AE60" opacity="0.9"/>
+    <text x="0" y="-8" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12" font-weight="bold">100+</text>
+    <text x="0" y="8" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="8">PROYECTOS</text>
+  </g>
+  
+  <!-- Floating tech icons -->
+  <g transform="translate(50, 50)">
+    <!-- Gear rotating -->
+    <circle cx="0" cy="0" r="20" fill="#34495E" opacity="0.7"/>
+    <path d="M-10,-10 L10,-10 L10,10 L-10,10 Z" fill="#ECF0F1"/>
+    <circle cx="0" cy="0" r="8" fill="#34495E"/>
+    <animateTransform attributeName="transform" type="rotate" values="0 50 50;360 50 50" dur="6s" repeatCount="indefinite"/>
+  </g>
+  
+  <g transform="translate(520, 200)">
+    <!-- Agile methodology symbol -->
+    <circle cx="0" cy="0" r="15" fill="#9B59B6" opacity="0.7"/>
+    <path d="M-8,0 L0,-8 L8,0 L0,8 Z" fill="#ECF0F1"/>
+  </g>
+  
+  <!-- Quality metrics -->
+  <g transform="translate(30, 250)">
+    <rect x="0" y="0" width="80" height="60" fill="#2C3E50" opacity="0.8" rx="5"/>
+    <text x="40" y="15" text-anchor="middle" fill="#3498DB" font-family="Arial, sans-serif" font-size="10" font-weight="bold">CALIDAD</text>
+    
+    <!-- Progress bars -->
+    <rect x="10" y="25" width="60" height="6" fill="#34495E" rx="3"/>
+    <rect x="10" y="25" width="54" height="6" fill="#27AE60" rx="3"/>
+    <text x="75" y="30" fill="#ECF0F1" font-family="Arial, sans-serif" font-size="8">90%</text>
+    
+    <rect x="10" y="35" width="60" height="6" fill="#34495E" rx="3"/>
+    <rect x="10" y="35" width="57" height="6" fill="#3498DB" rx="3"/>
+    <text x="75" y="40" fill="#ECF0F1" font-family="Arial, sans-serif" font-size="8">95%</text>
+    
+    <rect x="10" y="45" width="60" height="6" fill="#34495E" rx="3"/>
+    <rect x="10" y="45" width="51" height="6" fill="#E74C3C" rx="3"/>
+    <text x="75" y="50" fill="#ECF0F1" font-family="Arial, sans-serif" font-size="8">85%</text>
+  </g>
+  
+  <!-- Coffee cups (work culture) -->
+  <g transform="translate(150, 280)">
+    <rect x="0" y="0" width="12" height="15" fill="#8B4513" rx="2"/>
+    <rect x="2" y="2" width="8" height="11" fill="#D2691E" rx="1"/>
+    <ellipse cx="6" cy="4" rx="3" ry="1" fill="#F4A460"/>
+    <path d="M12,8 Q15,8 15,11 Q15,14 12,14" stroke="#8B4513" stroke-width="1" fill="none"/>
+    
+    <!-- Steam -->
+    <path d="M4,0 Q4,-3 6,-3 Q6,0 8,0" stroke="#ECF0F1" stroke-width="1" fill="none" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;0.3;0.7" dur="2s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Innovation lightbulb -->
+  <g transform="translate(400, 30)">
+    <circle cx="0" cy="0" r="12" fill="#F39C12" opacity="0.8"/>
+    <rect x="-3" y="8" width="6" height="8" fill="#34495E" rx="2"/>
+    <rect x="-5" y="14" width="10" height="2" fill="#2C3E50"/>
+    
+    <!-- Light rays -->
+    <path d="M-18,0 L-15,0 M18,0 L15,0 M0,-18 L0,-15 M0,18 L0,15 M-13,-13 L-10,-10 M13,-13 L10,-10 M-13,13 L-10,10 M13,13 L10,10" 
+          stroke="#F39C12" stroke-width="2" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.5s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Bottom text -->
+  <text x="300" y="360" text-anchor="middle" fill="#ECF0F1" font-family="Arial, sans-serif" font-size="18" font-weight="bold" opacity="0.8">
+    EQUIPO PROFESIONAL • EXPERIENCIA • INNOVACIÓN
+  </text>
+</svg>

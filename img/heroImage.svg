@@ -1,0 +1,131 @@
+<svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2C3E50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3498DB;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="screenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ECF0F1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#BDC3C7;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="codeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#E74C3C;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F39C12;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#27AE60;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="500" height="400" fill="url(#bgGradient)" rx="20"/>
+  
+  <!-- Floating geometric shapes -->
+  <circle cx="80" cy="80" r="25" fill="#3498DB" opacity="0.3"/>
+  <rect x="400" y="60" width="40" height="40" fill="#E74C3C" opacity="0.3" rx="5"/>
+  <polygon points="450,320 470,280 490,320" fill="#F39C12" opacity="0.3"/>
+  <circle cx="50" cy="320" r="20" fill="#9B59B6" opacity="0.3"/>
+  
+  <!-- Main laptop/screen -->
+  <g transform="translate(100, 80)">
+    <!-- Laptop base -->
+    <rect x="0" y="200" width="300" height="20" fill="#34495E" rx="10"/>
+    
+    <!-- Screen -->
+    <rect x="20" y="40" width="260" height="160" fill="#2C3E50" rx="8"/>
+    <rect x="30" y="50" width="240" height="140" fill="url(#screenGradient)" rx="5"/>
+    
+    <!-- Code lines on screen -->
+    <rect x="45" y="70" width="80" height="6" fill="#3498DB" opacity="0.8"/>
+    <rect x="45" y="85" width="120" height="6" fill="#E74C3C" opacity="0.8"/>
+    <rect x="45" y="100" width="60" height="6" fill="#27AE60" opacity="0.8"/>
+    <rect x="45" y="115" width="140" height="6" fill="#F39C12" opacity="0.8"/>
+    <rect x="45" y="130" width="100" height="6" fill="#9B59B6" opacity="0.8"/>
+    <rect x="45" y="145" width="90" height="6" fill="#3498DB" opacity="0.8"/>
+    <rect x="45" y="160" width="110" height="6" fill="#E74C3C" opacity="0.8"/>
+    
+    <!-- Glowing cursor -->
+    <rect x="190" y="70" width="2" height="6" fill="#ECF0F1" filter="url(#glow)">
+      <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  
+  <!-- Floating icons -->
+  <g>
+    <!-- Orbitando en un radio -->
+    <g>
+      <g transform="translate(70, 0)">
+        <!-- Engranaje -->
+        <circle cx="0" cy="0" r="20" fill="#34495E"/>
+        <path d="M-8,-8 L8,-8 L8,8 L-8,8 Z" fill="#ECF0F1"/>
+        <circle cx="0" cy="0" r="6" fill="#34495E"/>
+      </g>
+      <animateTransform 
+        attributeName="transform" 
+        type="rotate" 
+        values="0 250 200;360 250 200" 
+        dur="15s" 
+        repeatCount="indefinite"/>
+    </g>
+  </g>
+  
+  <g transform="translate(80, 250)">
+    <!-- Mobile phone -->
+    <rect x="0" y="0" width="30" height="50" fill="#34495E" rx="8"/>
+    <rect x="3" y="5" width="24" height="35" fill="#3498DB" opacity="0.8"/>
+    <circle cx="15" cy="45" r="3" fill="#ECF0F1"/>
+  </g>
+  
+  <g transform="translate(400, 250)">
+    <!-- Cloud icon -->
+    <circle cx="0" cy="0" r="15" fill="#ECF0F1"/>
+    <circle cx="15" cy="-5" r="20" fill="#ECF0F1"/>
+    <circle cx="30" cy="0" r="15" fill="#ECF0F1"/>
+    <rect x="0" y="0" width="30" height="15" fill="#ECF0F1"/>
+    
+    <!-- Upload arrow -->
+    <path d="M15,5 L15,25 M10,10 L15,5 L20,10" stroke="#3498DB" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- Digital connection lines -->
+  <g opacity="0.5">
+    <line x1="200" y1="200" x2="350" y2="150" stroke="#3498DB" stroke-width="2" stroke-dasharray="5,5">
+      <animate attributeName="stroke-dashoffset" values="0;-10" dur="2s" repeatCount="indefinite"/>
+    </line>
+    <line x1="200" y1="200" x2="95" y2="250" stroke="#E74C3C" stroke-width="2" stroke-dasharray="5,5">
+      <animate attributeName="stroke-dashoffset" values="0;-10" dur="2s" repeatCount="indefinite"/>
+    </line>
+    <line x1="200" y1="200" x2="415" y2="250" stroke="#27AE60" stroke-width="2" stroke-dasharray="5,5">
+      <animate attributeName="stroke-dashoffset" values="0;-10" dur="2s" repeatCount="indefinite"/>
+    </line>
+  </g>
+  
+  <!-- Floating particles -->
+  <circle cx="120" cy="120" r="2" fill="#3498DB">
+    <animate attributeName="cy" values="120;110;120" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="380" cy="180" r="2" fill="#E74C3C">
+    <animate attributeName="cy" values="180;170;180" dur="2.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="150" cy="300" r="2" fill="#27AE60">
+    <animate attributeName="cy" values="300;290;300" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Tech text overlay -->
+  <text x="250" y="350" text-anchor="middle" fill="#ECF0F1" font-family="Arial, sans-serif" font-size="24" font-weight="bold" opacity="0.7">
+    INNOVACIÓN DIGITAL
+  </text>
+</svg>
