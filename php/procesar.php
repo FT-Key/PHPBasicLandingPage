@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php'; // carga PHPMailer y también dotenv
+require __DIR__ . '/../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -8,17 +8,39 @@ use Dotenv\Dotenv;
 // Ruta base de tus envs
 $envPath = __DIR__ . '/../';
 
-// Cargar primero el archivo base (opcional)
+// Cargar archivo base .env
 $dotenv = Dotenv::createImmutable($envPath);
 $dotenv->load();
 
-// Verificar si se definió APP_ENV en tu archivo base
+// Verificar si es producción y cargar archivo específico
 $appEnv = getenv('APP_ENV');
-
-// Si es production, cargar el archivo .env.production
 if ($appEnv === 'production') {
-    $dotenv = Dotenv::createImmutable($envPath, '.env.production');
-    $dotenv->load();
+  $dotenv = Dotenv::createImmutable($envPath, '.env.production');
+  $dotenv->load();
+}
+
+// Variables que queremos cargar
+$vars = [
+  'APP_ENV',
+  'DB_HOST',
+  'DB_NAME',
+  'DB_USER',
+  'DB_PASS',
+  'DB_PORT',
+  'SMTP_HOST',
+  'SMTP_PORT',
+  'SMTP_USER',
+  'SMTP_PASS',
+  'FROM_EMAIL',
+  'FROM_NAME',
+  'TO_EMAIL',
+  'TO_NAME',
+];
+
+// Cargar variables en array $config
+$config = [];
+foreach ($vars as $var) {
+  $config[$var] = $_ENV[$var] ?? getenv($var) ?: '';
 }
 
 // ====================================
@@ -46,31 +68,31 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ====================================
-// CONFIGURACIÓN
+// CONFIGURACIÓN DE EMAIL Y BASE DE DATOS
 // ====================================
 
-// Configuración de email
-$config = [
-  'smtp_host' => getenv('SMTP_HOST'),
-  'smtp_port' => getenv('SMTP_PORT'),
-  'smtp_user' => getenv('SMTP_USER'),
-  'smtp_pass' => getenv('SMTP_PASS'),
-  'from_email' => getenv('FROM_EMAIL'),
-  'from_name' => getenv('FROM_NAME'),
-  'to_email' => getenv('TO_EMAIL'),
-  'to_name' => getenv('TO_NAME')
+$emailConfig = [
+  'smtp_host' => $config['SMTP_HOST'],
+  'smtp_port' => $config['SMTP_PORT'] ?: 587,
+  'smtp_user' => $config['SMTP_USER'],
+  'smtp_pass' => $config['SMTP_PASS'],
+  'from_email' => $config['FROM_EMAIL'],
+  'from_name' => $config['FROM_NAME'],
+  'to_email' => $config['TO_EMAIL'],
+  'to_name' => $config['TO_NAME'],
 ];
 
-// Configuración de base de datos (opcional)
 $db_config = [
-  'host' => getenv('DB_HOST'),
-  'port' => getenv('DB_PORT'),
-  'dbname' => getenv('DB_NAME'),
-  'username' => getenv('DB_USER'),
-  'password' => getenv('DB_PASS'),
+  'host' => $config['DB_HOST'],
+  'port' => $config['DB_PORT'] ?: 3306,
+  'dbname' => $config['DB_NAME'],
+  'username' => $config['DB_USER'],
+  'password' => $config['DB_PASS'],
 ];
 
+// Seguir con tu lógica, por ejemplo:
 verificarYCrearTablaContactos($db_config);
+// enviarCorreo($emailConfig);
 
 // ====================================
 // FUNCIONES DE VALIDACIÓN
@@ -198,7 +220,7 @@ try {
   }
 
   // Procesar el formulario
-  $resultado_email = enviarEmail($datos, $config);
+  $resultado_email = enviarEmail($datos, $emailConfig);
   $resultado_db = guardarEnBaseDatos($datos, $db_config);
 
   if ($resultado_email) {
@@ -252,6 +274,20 @@ function enviarEmail($datos, $config)
     $mail->Subject = "Nuevo contacto desde TechSolutions - " . $datos['nombre'];
     $mail->Body = generarPlantillaEmail($datos);
 
+    error_log("Host: " . $mail->Host);
+    error_log("Username: " . $mail->Username);
+    error_log("Password: " . $mail->Password);
+    error_log("From email: " . $config['from_email']);
+    error_log("From name: " . $config['from_name']);
+    error_log("To email: " . $config['to_email']);
+    error_log("To name: " . $config['to_name']);
+    error_log("ReplyTo email: " . $datos['email']);
+    error_log("ReplyTo name: " . $datos['nombre']);
+    error_log("SMTP port: " . $mail->Port);
+    error_log("SMTP Secure: " . $mail->SMTPSecure);
+    error_log("SMTP Auth: " . ($mail->SMTPAuth ? 'true' : 'false'));
+
+
     $mail->send();
 
     // Enviar email de confirmación
@@ -260,6 +296,7 @@ function enviarEmail($datos, $config)
     return true;
   } catch (Exception $e) {
     error_log("Error al enviar email: " . $mail->ErrorInfo);
+    error_log("Exception message: " . $e->getMessage());
     return false;
   }
 }
