@@ -9,3 +9,4 @@
 .idea/
 /.vscode/
 /node_modules/
+php/test_smtp.php
