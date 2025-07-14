@@ -1,0 +1,18 @@
+[14-Jul-2025 19:25:21 Europe/Berlin] ❌ Error al verificar/crear tabla: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)
+[14-Jul-2025 19:25:21 Europe/Berlin] Error al enviar email: Invalid address:  (From): 
+[14-Jul-2025 19:25:21 Europe/Berlin] Exception message: Invalid address:  (From): 
+[14-Jul-2025 19:25:21 Europe/Berlin] Error en base de datos: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)
+[14-Jul-2025 19:31:00 Europe/Berlin] ℹ️ Tabla 'contactos' ya existe, no se creó
+[14-Jul-2025 19:31:00 Europe/Berlin] Host: smtp.gmail.com
+[14-Jul-2025 19:31:00 Europe/Berlin] Username: fr4nc0t2@gmail.com
+[14-Jul-2025 19:31:00 Europe/Berlin] Password: geca ajmu eyug vgoj
+[14-Jul-2025 19:31:00 Europe/Berlin] From email: fr4nc0t2@gmail.com
+[14-Jul-2025 19:31:00 Europe/Berlin] From name: TechSolutions
+[14-Jul-2025 19:31:00 Europe/Berlin] To email: fr4nc0t2@gmail.com
+[14-Jul-2025 19:31:00 Europe/Berlin] To name: Franco T.
+[14-Jul-2025 19:31:00 Europe/Berlin] ReplyTo email: fr4nc0t2@gmail.com
+[14-Jul-2025 19:31:00 Europe/Berlin] ReplyTo name: Neo
+[14-Jul-2025 19:31:00 Europe/Berlin] SMTP port: 587
+[14-Jul-2025 19:31:00 Europe/Berlin] SMTP Secure: tls
+[14-Jul-2025 19:31:00 Europe/Berlin] SMTP Auth: true
+[14-Jul-2025 19:31:06 Europe/Berlin] PHP Warning:  mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set() in C:\Users\Fr4nc\OneDrive\Desktop\Practice\PHPBasic\php\procesar.php on line 438

@@ -8,15 +8,27 @@ use Dotenv\Dotenv;
 // Ruta base de tus envs
 $envPath = __DIR__ . '/../';
 
-// Cargar archivo base .env
-$dotenv = Dotenv::createImmutable($envPath);
-$dotenv->load();
+function cargarConfiguracion($envPath, $vars) {
+    // Primero, intentamos detectar si estamos en local
+    // Podés usar APP_ENV o la existencia del .env para definir "local"
+    $isLocal = file_exists($envPath . '/.env');
 
-// Verificar si es producción y cargar archivo específico
-$appEnv = getenv('APP_ENV');
-if ($appEnv === 'production') {
-  $dotenv = Dotenv::createImmutable($envPath, '.env.production');
-  $dotenv->load();
+    if ($isLocal) {
+        // Si estamos en local, cargamos .env para las variables
+        $dotenv = Dotenv::createImmutable($envPath);
+        $dotenv->load();
+    }
+
+    // Ahora, siempre que sea (local o producción),
+    // obtenemos las variables del entorno (que en local fueron cargadas con dotenv,
+    // y en producción estarán definidas directamente en el entorno de Render)
+
+    $config = [];
+    foreach ($vars as $var) {
+        $config[$var] = $_ENV[$var] ?? getenv($var) ?: '';
+    }
+
+    return $config;
 }
 
 // Variables que queremos cargar
@@ -38,10 +50,8 @@ $vars = [
 ];
 
 // Cargar variables en array $config
-$config = [];
-foreach ($vars as $var) {
-  $config[$var] = $_ENV[$var] ?? getenv($var) ?: '';
-}
+
+$config = cargarConfiguracion($envPath, $vars);
 
 // ====================================
 // PROCESAMIENTO DE FORMULARIO PHP
