@@ -8,27 +8,28 @@ use Dotenv\Dotenv;
 // Ruta base de tus envs
 $envPath = __DIR__ . '/../';
 
-function cargarConfiguracion($envPath, $vars) {
-    // Primero, intentamos detectar si estamos en local
-    // Podés usar APP_ENV o la existencia del .env para definir "local"
-    $isLocal = file_exists($envPath . '/.env');
+function cargarConfiguracion($envPath, $vars)
+{
+  // Primero, intentamos detectar si estamos en local
+  // Podés usar APP_ENV o la existencia del .env para definir "local"
+  $isLocal = file_exists($envPath . '/.env');
 
-    if ($isLocal) {
-        // Si estamos en local, cargamos .env para las variables
-        $dotenv = Dotenv::createImmutable($envPath);
-        $dotenv->load();
-    }
+  if ($isLocal) {
+    // Si estamos en local, cargamos .env para las variables
+    $dotenv = Dotenv::createImmutable($envPath);
+    $dotenv->load();
+  }
 
-    // Ahora, siempre que sea (local o producción),
-    // obtenemos las variables del entorno (que en local fueron cargadas con dotenv,
-    // y en producción estarán definidas directamente en el entorno de Render)
+  // Ahora, siempre que sea (local o producción),
+  // obtenemos las variables del entorno (que en local fueron cargadas con dotenv,
+  // y en producción estarán definidas directamente en el entorno de Render)
 
-    $config = [];
-    foreach ($vars as $var) {
-        $config[$var] = $_ENV[$var] ?? getenv($var) ?: '';
-    }
+  $config = [];
+  foreach ($vars as $var) {
+    $config[$var] = $_ENV[$var] ?? getenv($var) ?: '';
+  }
 
-    return $config;
+  return $config;
 }
 
 // Variables que queremos cargar
@@ -98,6 +99,12 @@ $db_config = [
   'dbname' => $config['DB_NAME'],
   'username' => $config['DB_USER'],
   'password' => $config['DB_PASS'],
+];
+
+$db_options = [
+  PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+  PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+  PDO::ATTR_EMULATE_PREPARES   => false,
 ];
 
 // Seguir con tu lógica, por ejemplo:
@@ -230,6 +237,7 @@ try {
   }
 
   // Procesar el formulario
+  crearTablaContactos($db_config);
   $resultado_email = enviarEmail($datos, $emailConfig);
   $resultado_db = guardarEnBaseDatos($datos, $db_config);
 
@@ -283,20 +291,6 @@ function enviarEmail($datos, $config)
     $mail->isHTML(true);
     $mail->Subject = "Nuevo contacto desde TechSolutions - " . $datos['nombre'];
     $mail->Body = generarPlantillaEmail($datos);
-
-    error_log("Host: " . $mail->Host);
-    error_log("Username: " . $mail->Username);
-    error_log("Password: " . $mail->Password);
-    error_log("From email: " . $config['from_email']);
-    error_log("From name: " . $config['from_name']);
-    error_log("To email: " . $config['to_email']);
-    error_log("To name: " . $config['to_name']);
-    error_log("ReplyTo email: " . $datos['email']);
-    error_log("ReplyTo name: " . $datos['nombre']);
-    error_log("SMTP port: " . $mail->Port);
-    error_log("SMTP Secure: " . $mail->SMTPSecure);
-    error_log("SMTP Auth: " . ($mail->SMTPAuth ? 'true' : 'false'));
-
 
     $mail->send();
 
@@ -446,7 +440,14 @@ function guardarEnBaseDatos($datos, $db_config)
 {
   try {
     // Conectar a la base de datos
-    $pdo = new PDO(
+
+    global $db_options;
+
+    $dsn = "mysql:host={$db_config['host']};port={$db_config['port']};dbname={$db_config['dbname']};charset=utf8mb4";
+
+    $pdo = new PDO($dsn, $db_config['username'], $db_config['password'], $db_options);
+
+    /*  $pdo = new PDO(
       "mysql:host={$db_config['host']};dbname={$db_config['dbname']};charset=utf8",
       $db_config['username'],
       $db_config['password'],
@@ -454,7 +455,7 @@ function guardarEnBaseDatos($datos, $db_config)
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
       ]
-    );
+    ); */
 
     // Preparar consulta
     $sql = "INSERT INTO contactos (nombre, email, empresa, servicio, mensaje, fecha_creacion, ip_address) 
@@ -486,11 +487,12 @@ function guardarEnBaseDatos($datos, $db_config)
 function crearTablaContactos($db_config)
 {
   try {
-    $pdo = new PDO(
-      "mysql:host={$db_config['host']};dbname={$db_config['dbname']};charset=utf8",
-      $db_config['username'],
-      $db_config['password']
-    );
+
+    global $db_options;
+
+    $dsn = "mysql:host={$db_config['host']};port={$db_config['port']};dbname={$db_config['dbname']};charset=utf8mb4";
+
+    $pdo = new PDO($dsn, $db_config['username'], $db_config['password'], $db_options);
 
     $sql = "CREATE TABLE IF NOT EXISTS contactos (
             id INT AUTO_INCREMENT PRIMARY KEY,
