@@ -9,8 +9,8 @@ AddDefaultCharset UTF-8
   Require all denied
 </Files>
 
-# Restringir acceso solo a peticiones POST (por ejemplo, para procesar.php)
-<Files "procesar.php">
+# Restringir acceso solo a peticiones POST (por ejemplo, para process_form.php)
+<Files "process_form.php">
   <If "%{REQUEST_METHOD} != 'POST'">
     Require all denied
   </If>

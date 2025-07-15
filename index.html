@@ -12,6 +12,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="./assets/css/index.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -192,8 +193,7 @@
                 <div class="card border-0 shadow-sm">
                   <div class="card-body p-5 text-center">
                     <div class="testimonial-avatar mb-4">
-                      <img src="./assets/images/imageMariaGonzalez.png" alt="Maria"
-                        class="rounded-circle">
+                      <img src="./assets/images/imageMariaGonzalez.png" alt="Maria" class="rounded-circle">
                     </div>
                     <blockquote class="blockquote">
                       <p class="mb-4">"Excelente trabajo, cumplieron todos los plazos y superaron nuestras expectativas.
@@ -209,8 +209,7 @@
                 <div class="card border-0 shadow-sm">
                   <div class="card-body p-5 text-center">
                     <div class="testimonial-avatar mb-4">
-                      <img src="./assets/images/imageJuanPerez.png" alt="Juan"
-                        class="rounded-circle">
+                      <img src="./assets/images/imageJuanPerez.png" alt="Juan" class="rounded-circle">
                     </div>
                     <blockquote class="blockquote">
                       <p class="mb-4">"El equipo de TechSolutions transformó completamente nuestra presencia digital.
@@ -226,8 +225,7 @@
                 <div class="card border-0 shadow-sm">
                   <div class="card-body p-5 text-center">
                     <div class="testimonial-avatar mb-4">
-                      <img src="./assets/images/imageAnaRodriguez.png" alt="Ana"
-                        class="rounded-circle">
+                      <img src="./assets/images/imageAnaRodriguez.png" alt="Ana" class="rounded-circle">
                     </div>
                     <blockquote class="blockquote">
                       <p class="mb-4">"Profesionales, creativos y muy eficientes. La mejor inversión que hemos hecho
@@ -269,7 +267,8 @@
         <div class="col-lg-8 mx-auto">
           <div class="card border-0 shadow-lg">
             <div class="card-body p-5">
-              <form action="./php/procesar.php" method="post">
+
+              <form method="post" id="contactForm">
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label for="nombre" class="form-label">Nombre *</label>
@@ -297,13 +296,16 @@
                     <label for="mensaje" class="form-label">Mensaje *</label>
                     <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
                   </div>
+                  <div class="col-12">
+                    <div class="g-recaptcha" data-sitekey="6LfxOYQrAAAAAEHV2_iJ8GmQWqAzjpn-Rg3nGEUF"></div>
+                  </div>
                   <div class="col-12 text-center">
                     <button type="submit" class="btn btn-primary-matte btn-lg px-5">
                       <i class="bi bi-send me-2"></i>Enviar Mensaje
                     </button>
                   </div>
-                </div>
               </form>
+
             </div>
           </div>
         </div>
