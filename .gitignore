@@ -10,5 +10,5 @@
 /.vscode/
 /node_modules/
 php/test_smtp.php
-php/test_conection.php
-/test_conection.html
+php/test_connection.php
+/test_connection.html

@@ -167,7 +167,7 @@ function showFieldSuccess(field) {
 // ====================================
 
 function initContactForm() {
-  const form = document.querySelector('form');
+  const form = document.getElementById('contactForm');
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -194,15 +194,12 @@ function submitForm(form) {
   const submitBtn = form.querySelector('button[type="submit"]');
   const originalText = submitBtn.innerHTML;
 
-  // Mostrar loading
   submitBtn.disabled = true;
   submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
 
-  // Crear FormData
   const formData = new FormData(form);
 
-  // Enviar datos con fetch
-  fetch('../php/procesar.php', {
+  fetch('../php/middleware/verify_recaptcha.php', {
     method: 'POST',
     body: formData
   })
@@ -211,10 +208,10 @@ function submitForm(form) {
       if (data.success) {
         showAlert(data.message, 'success');
         form.reset();
-        // Remover clases de validación
         form.querySelectorAll('.is-valid, .is-invalid').forEach(field => {
           field.classList.remove('is-valid', 'is-invalid');
         });
+        grecaptcha.reset(); // reset widget v2 para nuevo envío
       } else {
         showAlert(data.message, 'error');
       }
@@ -224,7 +221,6 @@ function submitForm(form) {
       showAlert('Error al enviar el formulario. Inténtalo de nuevo.', 'error');
     })
     .finally(() => {
-      // Restaurar botón
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
     });
