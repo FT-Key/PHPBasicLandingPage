@@ -1,15 +1,36 @@
 <?php
 // verify_recaptcha.php
 
+// Incluye el autoload de composer para que funcione Dotenv y Logger
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+// Incluye Logger (ajusta ruta si es necesario)
+require_once __DIR__ . '/../logger/Logger.php';
+Logger::init(__DIR__ . '/../logs');
+
+// Incluye el cargador de configuración
+require_once __DIR__ . '/../config/config_loader.php';
+
+// Carga las variables que necesitas, la ruta debe apuntar a donde está tu .env
+// Por ejemplo si .env está en la raíz del proyecto
+$envPath = realpath(__DIR__ . '/../../'); // Ajusta si no es correcto
+
+$config = cargarConfiguracion($envPath, ['RECAPTCHA_SECRET']);
+
+// Clave secreta desde configuración
+$secret = $config['RECAPTCHA_SECRET'] ?? '';
+
+if (empty($secret)) {
+  Logger::error('recaptcha', 'No se encontró la clave secreta de reCAPTCHA en configuración');
+  jsonResponse(false, 'Error: Clave secreta no configurada.');
+}
+
 // ✅ Incluir rate limit antes que nada
 require_once __DIR__ . '/../security/rate_limit.php';
 
-// Clave secreta de tu reCAPTCHA (la que te da Google)
-$secret = '6LfxOYQrAAAAANg-8rNkWaZgL5f8dFDUne0PmT-_';
-
 // Verificar que existe la respuesta
 if (empty($_POST['g-recaptcha-response'])) {
-  die('Error: Completa el reCAPTCHA.');
+  jsonResponse(false, 'Error: Completa el reCAPTCHA.');
 }
 
 $response = $_POST['g-recaptcha-response'];
@@ -36,7 +57,8 @@ $result = file_get_contents($verifyUrl, false, $context);
 $resultJson = json_decode($result, true);
 
 if ($resultJson['success'] !== true) {
-  die('Error: Verificación reCAPTCHA fallida.');
+  Logger::warning('recaptcha', 'Fallo verificación reCAPTCHA', ['response' => $resultJson]);
+  jsonResponse(false, 'Error: Verificación reCAPTCHA fallida.');
 }
 
 // ✅ Si pasa reCAPTCHA, incluí el process_form.php

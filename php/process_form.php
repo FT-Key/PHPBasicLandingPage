@@ -12,9 +12,12 @@ validarMetodoYContentType();
 
 require __DIR__ . '/../vendor/autoload.php';
 
+// Incluir Logger y config_loader
+require_once __DIR__ . '/logger/Logger.php';
+require_once __DIR__ . '/config/config_loader.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-use Dotenv\Dotenv;
 
 // ====================================
 // CONFIGURACIÓN INICIAL
@@ -31,72 +34,8 @@ require_once __DIR__ . '/security/headers.php';
 // SISTEMA DE LOGGING
 // ====================================
 
-class Logger
-{
-  private static $logDirectory;
-
-  public static function init($baseDir = __DIR__)
-  {
-    self::$logDirectory = $baseDir . '/logs';
-
-    // Crear directorio de logs si no existe
-    if (!is_dir(self::$logDirectory)) {
-      mkdir(self::$logDirectory, 0755, true);
-    }
-
-    // Crear archivo .htaccess para proteger los logs
-    $htaccessPath = self::$logDirectory . '/.htaccess';
-    if (!file_exists($htaccessPath)) {
-      file_put_contents($htaccessPath, "Deny from all\n");
-    }
-  }
-
-  public static function log($category, $message, $data = null, $level = 'INFO')
-  {
-    $timestamp = date('Y-m-d H:i:s');
-    $logFile = self::$logDirectory . '/' . $category . '_' . date('Y-m-d') . '.log';
-
-    $logEntry = [
-      'timestamp' => $timestamp,
-      'level' => $level,
-      'message' => $message,
-      'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
-      'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown'
-    ];
-
-    if ($data !== null) {
-      $logEntry['data'] = is_array($data) ? json_encode($data, JSON_UNESCAPED_UNICODE) : $data;
-    }
-
-    $logLine = json_encode($logEntry, JSON_UNESCAPED_UNICODE) . "\n";
-
-    // Escribir al archivo de log
-    file_put_contents($logFile, $logLine, FILE_APPEND | LOCK_EX);
-  }
-
-  public static function error($category, $message, $data = null)
-  {
-    self::log($category, $message, $data, 'ERROR');
-  }
-
-  public static function warning($category, $message, $data = null)
-  {
-    self::log($category, $message, $data, 'WARNING');
-  }
-
-  public static function info($category, $message, $data = null)
-  {
-    self::log($category, $message, $data, 'INFO');
-  }
-
-  public static function success($category, $message, $data = null)
-  {
-    self::log($category, $message, $data, 'SUCCESS');
-  }
-}
-
 // Inicializar logger
-Logger::init();
+Logger::init(__DIR__ . '/logs');
 
 // Verificar que sea una petición POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -107,64 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   http_response_code(405);
   echo json_encode(['success' => false, 'message' => 'Método no permitido']);
   exit;
-}
-
-// ====================================
-// FUNCIÓN DE CARGA DE CONFIGURACIÓN
-// ====================================
-
-function cargarConfiguracion($envPath, $vars)
-{
-  Logger::info('config', 'Iniciando carga de configuración', ['env_path' => $envPath]);
-
-  try {
-    // Detectar si estamos en local por la existencia del archivo .env
-    $isLocal = file_exists($envPath . '/.env');
-
-    Logger::info('config', 'Entorno detectado', [
-      'is_local' => $isLocal,
-      'env_file_exists' => file_exists($envPath . '/.env')
-    ]);
-
-    if ($isLocal) {
-      // Cargar variables desde .env en local
-      $dotenv = Dotenv::createImmutable($envPath);
-      $dotenv->load();
-      Logger::info('config', 'Variables de entorno cargadas desde archivo .env');
-    }
-
-    // Obtener variables del entorno
-    $config = [];
-    $missing_vars = [];
-
-    foreach ($vars as $var) {
-      $value = $_ENV[$var] ?? getenv($var) ?: '';
-      $config[$var] = $value;
-
-      if (empty($value)) {
-        $missing_vars[] = $var;
-      }
-    }
-
-    if (!empty($missing_vars)) {
-      Logger::warning('config', 'Variables de entorno faltantes', [
-        'missing_variables' => $missing_vars
-      ]);
-    }
-
-    Logger::success('config', 'Configuración cargada exitosamente', [
-      'loaded_vars' => count($config),
-      'missing_vars' => count($missing_vars)
-    ]);
-
-    return $config;
-  } catch (Exception $e) {
-    Logger::error('config', 'Error al cargar configuración', [
-      'error' => $e->getMessage(),
-      'trace' => $e->getTraceAsString()
-    ]);
-    throw $e;
-  }
 }
 
 // ====================================
