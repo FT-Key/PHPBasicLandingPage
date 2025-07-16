@@ -5,8 +5,8 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 // Incluye Logger (ajusta ruta si es necesario)
-require_once __DIR__ . '/../logger/Logger.php';
-Logger::init(__DIR__ . '/../logs');
+require_once __DIR__ . '/../core/Logger.php';
+Logger::init(__DIR__ . '/..');
 
 // Incluye el cargador de configuración
 require_once __DIR__ . '/../config/config_loader.php';

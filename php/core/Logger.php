@@ -1,5 +1,5 @@
 <?php
-// php/logger/Logger.php
+// php/core/Logger.php
 
 class Logger
 {
