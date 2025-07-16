@@ -1,7 +1,7 @@
 <?php
 // php/config/config_loader.php
 
-require_once __DIR__ . '/../logger/Logger.php'; // Ajusta ruta si es necesario
+require_once __DIR__ . '/../core/Logger.php'; // Ajusta ruta si es necesario
 
 use Dotenv\Dotenv;
 
