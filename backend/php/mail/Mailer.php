@@ -86,7 +86,7 @@ class Mailer
       $reply_name = $this->config['reply_name'] ?? ($this->config['from_name'] ?? '');
 
       $mail->addReplyTo($reply_email, $reply_name);
-      $mail->Subject = "Confirmación - Hemos recibido tu mensaje";
+      $mail->Subject = "Confirmacion - Hemos recibido tu mensaje";
       $mail->Body = EmailTemplates::generateConfirmationTemplate($datos, $this->config);
       $mail->addCustomHeader('List-Unsubscribe', "<mailto:{$this->config['from_email']}?subject=Unsubscribe>");
 

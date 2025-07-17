@@ -1,12 +1,14 @@
 <?php
 // backend/index.php
 
-require_once __DIR__ . '/vendor/autoload.php'; // ✅ Esto carga Dotenv y demás
-require_once __DIR__ . '/php/core/Logger.php';
-Logger::init(__DIR__ . '/php');
-require_once __DIR__ . '/php/security/headers.php';
+require_once __DIR__ . '/vendor/autoload.php'; // ✅ Dotenv, etc.
 require_once __DIR__ . '/php/core/ResponseHelper.php';
+require_once __DIR__ . '/php/core/Logger.php';
+Logger::init();
 
+// Middlewares globales
+require_once __DIR__ . '/php/middleware/headers.php';
+require_once __DIR__ . '/php/middleware/rate_limit.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
   http_response_code(200);

@@ -1,4 +1,5 @@
 <?php
+// backend/php/process_form.php
 
 // Al inicio del archivo, después de los requires
 ob_start(); // Capturar cualquier output accidental
@@ -9,7 +10,7 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/security/block_direct_access.php';
 require_once __DIR__ . '/security/check_payload_size.php';
-require_once __DIR__ . '/security/headers.php';
+require_once __DIR__ . '/middleware/headers.php';
 require_once __DIR__ . '/security/validate_content_type.php';
 validarMetodoYContentType();
 
@@ -22,7 +23,7 @@ require_once __DIR__ . '/mail/Mailer.php';
 require_once __DIR__ . '/validation/Validator.php';
 require_once __DIR__ . '/validation/SpamDetector.php';
 
-Logger::init(__DIR__ . '/');
+Logger::init();
 
 try {
   $envPath = __DIR__ . '/../';

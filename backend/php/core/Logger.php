@@ -4,23 +4,33 @@
 class Logger
 {
   private static $logDirectory;
+  private static $initialized = false;
 
-  public static function init($baseDir = __DIR__)
+  public static function init()
   {
-    self::$logDirectory = $baseDir . '/logs';
+    if (self::$initialized) return;
 
-    if (!is_dir(self::$logDirectory)) {
+    $logPath = __DIR__ . '/../logs';
+    self::$logDirectory = realpath($logPath);
+
+    if (!self::$logDirectory) {
+      self::$logDirectory = $logPath;
       mkdir(self::$logDirectory, 0755, true);
     }
 
+    // Proteger directorio en Apache
     $htaccessPath = self::$logDirectory . '/.htaccess';
     if (!file_exists($htaccessPath)) {
       file_put_contents($htaccessPath, "Deny from all\n");
     }
+
+    self::$initialized = true;
   }
 
   public static function log($category, $message, $data = null, $level = 'INFO')
   {
+    self::init();
+
     $timestamp = date('Y-m-d H:i:s');
     $logFile = self::$logDirectory . '/' . $category . '_' . date('Y-m-d') . '.log';
 
@@ -60,4 +70,14 @@ class Logger
   {
     self::log($category, $message, $data, 'SUCCESS');
   }
+
+  public static function logException($category, \Throwable $e)
+  {
+    self::log($category, 'Excepción atrapada: ' . $e->getMessage(), [
+      'file' => $e->getFile(),
+      'line' => $e->getLine(),
+      'trace' => $e->getTraceAsString()
+    ], 'EXCEPTION');
+  }
 }
+
