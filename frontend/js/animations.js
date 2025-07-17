@@ -1,6 +1,6 @@
 // ANIMACIONES: scroll, parallax, navbar, scroll-to-top, preloader
 
-function initSmoothScrolling() {
+export function initSmoothScrolling() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', e => {
       e.preventDefault();
@@ -14,7 +14,7 @@ function initSmoothScrolling() {
   });
 }
 
-function initNavbarScroll() {
+export function initNavbarScroll() {
   const navbar = document.querySelector('.navbar');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) navbar.classList.add('scrolled');
@@ -40,7 +40,7 @@ function updateActiveNavItem() {
   });
 }
 
-function initParallaxEffects() {
+export function initParallaxEffects() {
   const heroSection = document.querySelector('.hero-section');
   window.addEventListener('scroll', () => {
     if (window.scrollY < window.innerHeight) {
@@ -51,7 +51,7 @@ function initParallaxEffects() {
   });
 }
 
-function initScrollToTop() {
+export function initScrollToTop() {
   const scrollBtn = document.createElement('button');
   scrollBtn.innerHTML = '<i class="bi bi-arrow-up"></i>';
   scrollBtn.className = 'scroll-to-top';
@@ -68,7 +68,7 @@ function initScrollToTop() {
   });
 }
 
-function initLoadingEffects() {
+export function initLoadingEffects() {
   const images = document.querySelectorAll('img');
   images.forEach(img => {
     if (img.complete) img.classList.add('loaded');

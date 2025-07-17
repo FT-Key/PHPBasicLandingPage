@@ -1,6 +1,11 @@
 // ARCHIVO PRINCIPAL: inicializa todo y utilidades
+import { initSmoothScrolling, initNavbarScroll, initParallaxEffects, initScrollToTop, initLoadingEffects } from './animations.js';
+import { initFormValidation } from './validations.js';
+import { initContactForm } from './form.js';
+import { initRecaptcha } from './recaptcha.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  initRecaptcha();
   initSmoothScrolling();
   initNavbarScroll();
   initFormValidation();
@@ -11,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initParallaxEffects();
 });
 
-// Llama a las funciones de animaciones (para modularidad)
+// Llama a las funciones de animaciones (p  ara modularidad)
 function initAnimations() {
   // Animaciones al hacer scroll
   const observerOptions = {

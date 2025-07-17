@@ -9,6 +9,4 @@
 .idea/
 /.vscode/
 /node_modules/
-php/test_smtp.php
-php/test_connection.php
-/test_connection.html
+backend/php/test_smtp.php

@@ -1,4 +1,8 @@
-function initContactForm() {
+import { CONFIG } from '../constants/config.js';
+import { showAlert } from './utilities.js';
+import { validateField } from './validations.js';
+
+export function initContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) {
     console.warn('No se encontró el formulario contactForm');
@@ -35,20 +39,34 @@ function initContactForm() {
   });
 }
 
-async function submitForm(form) {
-
+export async function submitForm(form) {
   const submitBtn = form.querySelector('button[type="submit"]');
   const originalText = submitBtn.innerHTML;
 
   submitBtn.disabled = true;
-  submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
+  submitBtn.innerHTML =
+    '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
 
   try {
     const formData = new FormData(form);
 
-    const response = await fetch('http://localhost:8000/api/solicitar-servicio', {
+    // ✅ 1. Obtener el token del reCAPTCHA
+    const token = grecaptcha.getResponse();
+
+    // ✅ 2. Validar si fue completado
+    if (!token) {
+      showAlert('Por favor completá el reCAPTCHA antes de enviar.', 'error');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+      return;
+    }
+
+    // ✅ 3. Adjuntar el token al formData (clave obligatoria: "g-recaptcha-response")
+    formData.append('g-recaptcha-response', token);
+
+    const response = await fetch(`${CONFIG.API_BASE_URL}/solicitar-servicio`, {
       method: 'POST',
-      body: formData
+      body: formData,
     });
 
     const contentType = response.headers.get('content-type') || '';
@@ -64,13 +82,15 @@ async function submitForm(form) {
     if (data.success) {
       showAlert(data.message || 'Formulario enviado con éxito.', 'success');
       form.reset();
-      form.querySelectorAll('.is-valid, .is-invalid').forEach(field => {
-        field.classList.remove('is-valid', 'is-invalid');
-      });
+      grecaptcha.reset(); // ✅ Resetear reCAPTCHA después del envío
+      form
+        .querySelectorAll('.is-valid, .is-invalid')
+        .forEach((field) =>
+          field.classList.remove('is-valid', 'is-invalid')
+        );
     } else {
       showAlert(data.message || 'Error al procesar el formulario.', 'error');
     }
-
   } catch (error) {
     console.error('[submitForm] Error en fetch:', error);
     showAlert('Error de red o del servidor.', 'error');

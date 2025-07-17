@@ -1,4 +1,4 @@
-function showAlert(message, type = 'info') {
+export function showAlert(message, type = 'info') {
   // Crear alerta personalizada
   const alertDiv = document.createElement('div');
   alertDiv.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;

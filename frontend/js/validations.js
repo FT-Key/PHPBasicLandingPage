@@ -1,4 +1,4 @@
-function initFormValidation() {
+export function initFormValidation() {
   const form = document.querySelector('form');
   const inputs = form.querySelectorAll('input, textarea, select');
 
@@ -16,7 +16,7 @@ function initFormValidation() {
   });
 }
 
-function validateField(field) {
+export function validateField(field) {
   const value = field.value.trim();
   const fieldType = field.type;
   const isRequired = field.hasAttribute('required');
