@@ -1,6 +1,6 @@
 # 💻 TechSolutions — Innovación Digital
 
-![TechSolutions Banner](./assets/images/heroImage.svg)
+![TechSolutions Banner](./frontend/images/heroImage.svg)
 
 Transformamos tu **visión digital** en realidad.
 Con TechSolutions, llevamos tu negocio al siguiente nivel mediante soluciones tecnológicas innovadoras, personalizadas y de alto impacto.

@@ -1,7 +1,15 @@
 <?php
 
+// Al inicio del archivo, después de los requires
+ob_start(); // Capturar cualquier output accidental
+
+// Configurar manejo de errores para evitar HTML
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/security/block_direct_access.php';
 require_once __DIR__ . '/security/check_payload_size.php';
+require_once __DIR__ . '/security/headers.php';
 require_once __DIR__ . '/security/validate_content_type.php';
 validarMetodoYContentType();
 

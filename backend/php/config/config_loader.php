@@ -55,10 +55,3 @@ function cargarConfiguracion($envPath, $vars)
     throw $e;
   }
 }
-
-function jsonResponse($success, $message)
-{
-  header('Content-Type: application/json');
-  echo json_encode(['success' => $success, 'message' => $message]);
-  exit;
-}

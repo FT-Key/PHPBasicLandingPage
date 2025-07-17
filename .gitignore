@@ -1,6 +1,6 @@
-/vendor/
-/.env
-/.env.production
+/backend/vendor/
+/backend/.env
+/backend/.env.production
 /config.php
 /error_log_phpmailer.txt
 *.log
