@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechSolutions - Innovación Digital</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="./images/logo-nobg.webp" type="image/x-icon">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark-matte fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#home">
+        <i class="bi bi-cpu me-2"></i>TechSolutions
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#home">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#services">Servicios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#testimonials">Testimonios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contacto</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section">
+    <div class="container">
+      <div class="row min-vh-100 align-items-center">
+        <div class="col-lg-6">
+          <h1 class="display-4 fw-bold text-white mb-4">
+            Transformamos tu <span class="text-primary-matte">visión digital</span> en realidad
+          </h1>
+          <p class="lead text-light mb-4">
+            Creamos soluciones tecnológicas innovadoras que impulsan el crecimiento de tu negocio.
+            Desde desarrollo web hasta consultoría digital.
+          </p>
+          <div class="d-flex gap-3">
+            <button class="btn btn-primary-matte btn-lg" onclick="mostrarAlerta()">
+              Comenzar Ahora
+            </button>
+            <button class="btn btn-outline-light btn-lg">
+              <i class="bi bi-play-circle me-2"></i>Ver Demo
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <img src="./images/heroImage.svg" alt="Hero Image" class="img-fluid rounded-3 shadow-lg">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-5 bg-light-matte">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center mb-5">
+          <h2 class="display-5 fw-bold text-dark-matte mb-3">Nuestros Servicios</h2>
+          <p class="lead text-muted">
+            Ofrecemos una amplia gama de servicios tecnológicos diseñados para hacer crecer tu negocio
+          </p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm card-hover">
+            <div class="card-body text-center p-4">
+              <div class="feature-icon mb-3">
+                <i class="bi bi-code-slash"></i>
+              </div>
+              <h5 class="card-title">Desarrollo Web</h5>
+              <p class="card-text text-muted">
+                Creamos sitios web modernos, responsivos y optimizados para todos los dispositivos.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm card-hover">
+            <div class="card-body text-center p-4">
+              <div class="feature-icon mb-3">
+                <i class="bi bi-phone"></i>
+              </div>
+              <h5 class="card-title">Apps Móviles</h5>
+              <p class="card-text text-muted">
+                Desarrollamos aplicaciones móviles nativas e híbridas para iOS y Android.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm card-hover">
+            <div class="card-body text-center p-4">
+              <div class="feature-icon mb-3">
+                <i class="bi bi-cloud-upload"></i>
+              </div>
+              <h5 class="card-title">Cloud Solutions</h5>
+              <p class="card-text text-muted">
+                Migramos y optimizamos tu infraestructura en la nube para mayor eficiencia.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <img src="./images/aboutImage.svg" alt="About Us" class="img-fluid rounded-3 shadow-lg">
+        </div>
+        <div class="col-lg-6">
+          <h2 class="display-5 fw-bold text-dark-matte mb-4">Quiénes Somos</h2>
+          <p class="lead text-muted mb-4">
+            Somos un equipo de profesionales apasionados por la tecnología,
+            comprometidos con entregar soluciones de alta calidad.
+          </p>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <div class="d-flex align-items-center">
+                <i class="bi bi-check-circle-fill text-primary-matte me-3"></i>
+                <span>+5 años de experiencia</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="d-flex align-items-center">
+                <i class="bi bi-check-circle-fill text-primary-matte me-3"></i>
+                <span>+100 proyectos completados</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="d-flex align-items-center">
+                <i class="bi bi-check-circle-fill text-primary-matte me-3"></i>
+                <span>Soporte 24/7</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="d-flex align-items-center">
+                <i class="bi bi-check-circle-fill text-primary-matte me-3"></i>
+                <span>Metodologías ágiles</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Carousel -->
+  <section id="testimonials" class="py-5 bg-light-matte">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center mb-5">
+          <h2 class="display-5 fw-bold text-dark-matte mb-3">Lo que dicen nuestros clientes</h2>
+          <p class="lead text-muted">
+            La satisfacción de nuestros clientes es nuestra mayor recompensa
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          <div id="testimonialsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body p-5 text-center">
+                    <div class="testimonial-avatar mb-4">
+                      <img src="./images/imageMariaGonzalez.png" alt="Maria" class="rounded-circle">
+                    </div>
+                    <blockquote class="blockquote">
+                      <p class="mb-4">"Excelente trabajo, cumplieron todos los plazos y superaron nuestras expectativas.
+                        Muy recomendado."</p>
+                    </blockquote>
+                    <footer class="blockquote-footer">
+                      <cite title="Source Title">María González, CEO de StartupTech</cite>
+                    </footer>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body p-5 text-center">
+                    <div class="testimonial-avatar mb-4">
+                      <img src="./images/imageJuanPerez.png" alt="Juan" class="rounded-circle">
+                    </div>
+                    <blockquote class="blockquote">
+                      <p class="mb-4">"El equipo de TechSolutions transformó completamente nuestra presencia digital.
+                        Resultados increíbles."</p>
+                    </blockquote>
+                    <footer class="blockquote-footer">
+                      <cite title="Source Title">Juan Pérez, Director de Marketing</cite>
+                    </footer>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body p-5 text-center">
+                    <div class="testimonial-avatar mb-4">
+                      <img src="./images/imageAnaRodriguez.png" alt="Ana" class="rounded-circle">
+                    </div>
+                    <blockquote class="blockquote">
+                      <p class="mb-4">"Profesionales, creativos y muy eficientes. La mejor inversión que hemos hecho
+                        para nuestro negocio."</p>
+                    </blockquote>
+                    <footer class="blockquote-footer">
+                      <cite title="Source Title">Ana Rodríguez, Fundadora de EcoShop</cite>
+                    </footer>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center mb-5">
+          <h2 class="display-5 fw-bold text-dark-matte mb-3">Contáctanos</h2>
+          <p class="lead text-muted">
+            ¿Listo para comenzar tu próximo proyecto? Estamos aquí para ayudarte
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="card border-0 shadow-lg">
+            <div class="card-body p-5">
+
+              <form id="contactForm">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="nombre" class="form-label">Nombre *</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="email" class="form-label">Email *</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                  </div>
+                  <div class="col-12">
+                    <label for="empresa" class="form-label">Empresa</label>
+                    <input type="text" class="form-control" id="empresa" name="empresa">
+                  </div>
+                  <div class="col-12">
+                    <label for="servicio" class="form-label">Servicio de Interés</label>
+                    <select class="form-select" id="servicio" name="servicio">
+                      <option value="">Selecciona un servicio</option>
+                      <option value="desarrollo-web">Desarrollo Web</option>
+                      <option value="apps-moviles">Apps Móviles</option>
+                      <option value="cloud-solutions">Cloud Solutions</option>
+                      <option value="consultoria">Consultoría</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <label for="mensaje" class="form-label">Mensaje *</label>
+                    <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
+                  </div>
+                  <div class="col-12">
+                    <div class="g-recaptcha" data-sitekey="6LfxOYQrAAAAAEHV2_iJ8GmQWqAzjpn-Rg3nGEUF"></div>
+                  </div>
+                  <div class="col-12 text-center">
+                    <button id="submitButton" type="submit" class="btn btn-primary-matte btn-lg px-5">
+                      <i class="bi bi-send me-2"></i>Enviar Mensaje
+                    </button>
+                  </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark-matte text-light py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h5 class="fw-bold mb-3">
+            <i class="bi bi-cpu me-2"></i>TechSolutions
+          </h5>
+          <p class="text-muted-light">
+            Transformando ideas en soluciones digitales innovadoras.
+            Tu socio tecnológico de confianza.
+          </p>
+          <div class="social-links">
+            <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="text-light me-3"><i class="bi bi-linkedin"></i></a>
+            <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <h6 class="fw-bold mb-3">Servicios</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-muted-light text-decoration-none">Desarrollo Web</a></li>
+            <li><a href="#" class="text-muted-light text-decoration-none">Apps Móviles</a></li>
+            <li><a href="#" class="text-muted-light text-decoration-none">Cloud Solutions</a></li>
+            <li><a href="#" class="text-muted-light text-decoration-none">Consultoría</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2">
+          <h6 class="fw-bold mb-3">Empresa</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-muted-light text-decoration-none">Nosotros</a></li>
+            <li><a href="#" class="text-muted-light text-decoration-none">Equipo</a></li>
+            <li><a href="#" class="text-muted-light text-decoration-none">Carreras</a></li>
+            <li><a href="#" class="text-muted-light text-decoration-none">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h6 class="fw-bold mb-3">Contacto</h6>
+          <ul class="list-unstyled text-muted-light">
+            <li><i class="bi bi-geo-alt me-2"></i>123 Tech Street, Ciudad Digital</li>
+            <li><i class="bi bi-phone me-2"></i>+1 (555) 123-4567</li>
+            <li><i class="bi bi-envelope me-2"></i>info@techsolutions.com</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <p class="text-muted-light mb-0">&copy; 2024 TechSolutions. Todos los derechos reservados.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <a href="#" class="text-muted-light text-decoration-none me-3">Privacidad</a>
+          <a href="#" class="text-muted-light text-decoration-none">Términos</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="./constants/config.js" type="module"></script>
+  <script src="./js/recaptcha.js" type="module"></script>
+  <script src="./js/animations.js" type="module"></script>
+  <script src="./js/utilities.js" type="module"></script>
+  <script src="./js/validations.js" type="module"></script>
+  <script src="./js/form.js" type="module"></script>
+  <script src="./js/main.js" type="module"></script>
+
+</body>
+
+</html>

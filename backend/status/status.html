@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Servidor Backend Activo</title>
+  <style>
+    body {
+      background-color: #0e0e0e;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    .loader {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #00c6ff;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      animation: spin 1s linear infinite;
+      margin: 30px auto;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>🚀 Backend PHP activo</h1>
+  <div class="loader"></div>
+  <p>Servidor corriendo en <strong>localhost:8000</strong></p>
+</body>
+
+</html>
